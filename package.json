@@ -1,16 +1,30 @@
 {
   "name": "unicorn-web",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
+  "homepage": "https://github.com/ppxb/unicorn-web.git",
+  "license": "MIT",
+  "author": "ppxb",
+  "contributors": [
+    {
+      "name": "ppxb",
+      "email": "ppxb123@gmail.com",
+      "url": "https://github.com/ppxb"
+    }
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/cssinjs": "^1.5.6",
     "@reduxjs/toolkit": "^1.9.2",
+    "@types/crypto-js": "^4.1.1",
     "antd": "^5.1.7",
+    "crypto-js": "^4.1.1",
+    "dayjs": "^1.11.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
@@ -24,5 +38,8 @@
     "@vitejs/plugin-react": "^3.1.0",
     "typescript": "^4.9.3",
     "vite": "^4.1.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   }
 }

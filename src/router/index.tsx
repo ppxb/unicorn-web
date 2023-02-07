@@ -10,8 +10,8 @@ import zh_CN from 'antd/locale/zh_CN'
 import type { RootState } from '@/stores'
 const { defaultAlgorithm, darkAlgorithm } = theme
 
-const Page = () => {
-  const theme = useSelector((state: RootState) => state.public.theme)
+const RouterView = () => {
+  const theme = useSelector((state: RootState) => state.common.theme)
 
   return (
     <Router>
@@ -27,4 +27,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default RouterView

@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import commonReducer from './common'
+import userReducer from './user'
 
 export const store = configureStore({
   reducer: {
-    public: commonReducer
+    common: commonReducer,
+    user: userReducer
   }
 })
 
