@@ -11,6 +11,8 @@ import {
   StyleProvider,
   legacyLogicalPropertiesTransformer
 } from '@ant-design/cssinjs'
+import 'virtual:uno.css'
+import '@/assets/styles/common.less'
 
 // time
 import dayjs from 'dayjs'

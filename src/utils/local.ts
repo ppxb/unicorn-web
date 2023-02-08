@@ -19,6 +19,7 @@ export const setLocalStorage = <T>(
 
 export const getLocalStorage = <T>(key: string) => {
   const json = localStorage.getItem(key)
+
   if (json) {
     let data: StorageData | null = null
     try {
