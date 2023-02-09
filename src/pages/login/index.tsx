@@ -5,15 +5,17 @@ import type { ThemeType } from '@/stores/common'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, Form, Input } from 'antd'
+import { Button, Form, Input, message } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { setTheme } from '@/stores/common'
+import { setPermissions } from '@/stores/user'
 import { THEME_KEY } from '@/utils/config'
 import useTitle from '@/hooks/useTitle'
 import useToken from '@/hooks/useToken'
-import LogoSvg from '@/assets/images/logo.svg'
 import { login } from '@/api/login'
-import { setPermissions } from '@/stores/user'
+import LogoSvg from '@/assets/images/logo.svg'
+import { getPermittedMenu } from '@/menus/utils/helper'
+import defaultMenus from '@/menus'
 
 const Login = () => {
   useTitle('登录')
@@ -33,7 +35,8 @@ const Login = () => {
 
   useEffect(() => {
     if (getToken()) {
-      navigate('/dashboard')
+      const routes = getPermittedMenu(defaultMenus, permissions)
+      navigate(routes)
     }
   }, [])
 
@@ -44,8 +47,12 @@ const Login = () => {
       const {
         data: { token }
       } = data
+
+      const menus = getPermittedMenu(defaultMenus, permissions, '/dashboard')
       setToken(token)
       dispatch(setPermissions(permissions))
+      message.success({ key: 'success', content: '登录成功', duration: 1 })
+      navigate(menus)
     } finally {
       setLoading(false)
     }
