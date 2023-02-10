@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit'
 const menuSlice = createSlice({
   name: 'menu',
   initialState: {
-    isPhone: false,
     isCollapsed: false,
     selectedKeys: 'dashboard',
     openKeys: ['Dashboard']
@@ -11,9 +10,6 @@ const menuSlice = createSlice({
   reducers: {
     toggleCollapsed: (state, action) => {
       state.isCollapsed = !!action.payload
-    },
-    togglePhone: (state, action) => {
-      state.isPhone = !!action.payload
     },
     setSelectedKeys: (state, action) => {
       state.selectedKeys = action.payload
@@ -24,7 +20,7 @@ const menuSlice = createSlice({
   }
 })
 
-export const { toggleCollapsed, togglePhone, setSelectedKeys, setOpenKeys } =
+export const { toggleCollapsed, setSelectedKeys, setOpenKeys } =
   menuSlice.actions
 
 export default menuSlice.reducer

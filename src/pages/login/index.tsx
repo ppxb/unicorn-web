@@ -46,6 +46,44 @@ const Login = () => {
   const handleFinish: FormProps['onFinish'] = async (values: LoginProps) => {
     try {
       setLoading(true)
+      const menus1 = [
+        { id: 'dashboard', operation: [] },
+        {
+          id: 'demo',
+          operation: [
+            'copy',
+            'editor',
+            'wangEditor',
+            'virtualScroll',
+            'watermark'
+          ]
+        },
+        {
+          id: 'authority/user',
+          operation: [
+            'index',
+            'create',
+            'update',
+            'view',
+            'delete',
+            'authority'
+          ]
+        },
+        {
+          id: 'authority/role',
+          operation: ['index', 'create', 'update', 'view', 'delete']
+        },
+        {
+          id: 'authority/menu',
+          operation: ['index', 'create', 'update', 'view', 'delete']
+        },
+        {
+          id: 'content/article',
+          operation: ['index', 'create', 'update', 'view', 'delete']
+        }
+      ]
+      const newPermission1s = permissionsToArray(menus1)
+
       const { data } = await login(values)
       const {
         data: { token }
@@ -59,7 +97,7 @@ const Login = () => {
           key: 'permissions'
         })
 
-      const newPermissions = permissionsToArray(permissions)
+      const newPermissions = permissionsToArray(menus1)
       const menus = getPermittedMenu(defaultMenus, newPermissions)
       setToken(token)
       dispatch(setPermissions(newPermissions))

@@ -1,6 +1,4 @@
-import menu from '@/stores/menu'
 import type { SideMenu } from '@@/common'
-import { FireFilled } from '@ant-design/icons'
 
 export const getPermittedMenu = (
   menus: SideMenu[],
@@ -57,8 +55,6 @@ export const filterMenus = (
   permissions: string[]
 ): SideMenu[] => {
   const result: SideMenu[] = []
-
-  console.log(menus, permissions)
 
   for (let i = 0; i < menus.length; i++) {
     // handle children menus
