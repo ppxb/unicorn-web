@@ -1,6 +1,6 @@
 import type { FormProps } from 'antd/lib/form/Form'
 import type { AppDispatch, RootState } from '@/stores'
-import type { LoginProps } from './model'
+import type { LoginProps, Permission } from './model'
 import type { ThemeType } from '@/stores/common'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -16,6 +16,7 @@ import { login } from '@/api/login'
 import LogoSvg from '@/assets/images/logo.svg'
 import { getPermittedMenu } from '@/menus/utils/helper'
 import defaultMenus from '@/menus'
+import { permissionsToArray } from '@/utils/permission'
 
 const Login = () => {
   useTitle('登录')
@@ -23,8 +24,10 @@ const Login = () => {
   const dispatch: AppDispatch = useDispatch()
   const [getToken, setToken] = useToken()
   const [loading, setLoading] = useState(false)
-  const permissions = useSelector((state: RootState) => state.user.permissions)
   const themeType = (localStorage.getItem(THEME_KEY) || 'light') as ThemeType
+  const storePermissions = useSelector(
+    (state: RootState) => state.user.permissions
+  )
 
   useEffect(() => {
     if (themeType === 'dark') {
@@ -35,7 +38,7 @@ const Login = () => {
 
   useEffect(() => {
     if (getToken()) {
-      const routes = getPermittedMenu(defaultMenus, permissions)
+      const routes = getPermittedMenu(defaultMenus, storePermissions)
       navigate(routes)
     }
   }, [])
@@ -48,9 +51,18 @@ const Login = () => {
         data: { token }
       } = data
 
-      const menus = getPermittedMenu(defaultMenus, permissions, '/dashboard')
+      const permissions: Permission[] = []
+
+      if (!permissions?.length || !token)
+        return message.error({
+          content: '用户暂无权限登录',
+          key: 'permissions'
+        })
+
+      const newPermissions = permissionsToArray(permissions)
+      const menus = getPermittedMenu(defaultMenus, newPermissions)
       setToken(token)
-      dispatch(setPermissions(permissions))
+      dispatch(setPermissions(newPermissions))
       message.success({ key: 'success', content: '登录成功', duration: 1 })
       navigate(menus)
     } finally {

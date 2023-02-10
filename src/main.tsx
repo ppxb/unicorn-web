@@ -1,4 +1,3 @@
-import React from 'react'
 import { createRoot } from 'react-dom/client'
 import RouterView from '@/router'
 
@@ -22,14 +21,12 @@ dayjs.locale('zh-cn')
 const root = document.getElementById('root') as HTMLElement
 
 createRoot(root).render(
-  <React.StrictMode>
-    <StyleProvider
-      hashPriority="high"
-      transformers={[legacyLogicalPropertiesTransformer]}
-    >
-      <Provider store={store}>
-        <RouterView />
-      </Provider>
-    </StyleProvider>
-  </React.StrictMode>
+  <StyleProvider
+    hashPriority="high"
+    transformers={[legacyLogicalPropertiesTransformer]}
+  >
+    <Provider store={store}>
+      <RouterView />
+    </Provider>
+  </StyleProvider>
 )
